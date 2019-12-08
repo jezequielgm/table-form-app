@@ -20,7 +20,7 @@
           <input type="text" formControlName="email" id="email">
         </td>
         <td>
-          <p-dropdown [options]="level" [editable]="true"></p-dropdown>
+          <p-dropdown [options]="level" formControlName="level" [editable]="true"></p-dropdown>
         </td>
         <td>
           <button type="submit">Submit</button>
@@ -30,29 +30,74 @@
   </p-table>
 </form>
 
-
-<p-table [value]="users" [styleClass]="'base-table'">
+<p-table [value]="users" [styleClass]="'base-table'" dataKey="id" editMode="row">
   <ng-template pTemplate="caption">
     Current Users
   </ng-template>
   <ng-template pTemplate="header">
     <tr>
-      <th *ngFor="let column of columns">{{column}}</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Email</th>
+      <th>Education</th>
+      <th>Mode</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-user>
-    <tr>
+  <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="rowData">
       <td>
-        {{user.name}}
+        {{rowData.id}}
       </td>
       <td>
-        {{user.age}}
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="rowData.name" required>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{rowData.name}}
+          </ng-template>
+        </p-cellEditor>
       </td>
       <td>
-        {{user.email}}
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="rowData.age" required>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{rowData.age}}
+          </ng-template>
+        </p-cellEditor>
       </td>
       <td>
-        {{user.education}}
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="rowData.email" required>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{rowData.email}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-dropdown [options]="level" [editable]="true" [(ngModel)]="rowData.education" required></p-dropdown>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{rowData.education}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td style="text-align:center">
+        <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info"
+          style="margin-right: .5em" (click)="onRowEditInit(rowData)"></button>
+          <button *ngIf="!editing" pButton type="button" icon="pi pi-times-circle" class="ui-button-danger"
+          (click)="onRowEditRemove(ri)"></button>
+        <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success"
+          style="margin-right: .5em" (click)="onRowEditSave(rowData)"></button>
+        <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-minus-circle" class="ui-button-danger"
+          (click)="onRowEditCancel(rowData, ri)"></button>
       </td>
     </tr>
   </ng-template>

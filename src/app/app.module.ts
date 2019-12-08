@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {InputTextModule} from 'primeng/inputtext';
 import {DropdownModule} from 'primeng/dropdown';
 import {EditorModule} from 'primeng/editor';
+import {ButtonModule} from 'primeng/button';
+
 
 import { AppComponent } from './app.component';
 
@@ -18,6 +20,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     TableModule,
+    ButtonModule,
     InputTextModule,
     DropdownModule,
     EditorModule,
