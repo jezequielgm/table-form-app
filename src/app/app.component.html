@@ -1,0 +1,59 @@
+<form [formGroup]="userForm" (submit)="saveUser()">
+  <p-table [value]="rows" [styleClass]="'base-table'">
+    <ng-template pTemplate="caption">
+      New User
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let column of columns">{{column}}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body">
+      <tr>
+        <td>
+          <input type="text" formControlName="name" id="name" />
+        </td>
+        <td>
+          <input type="text" formControlName="age" id="age">
+        </td>
+        <td>
+          <input type="text" formControlName="email" id="email">
+        </td>
+        <td>
+          <p-dropdown [options]="level" [editable]="true"></p-dropdown>
+        </td>
+        <td>
+          <button type="submit">Submit</button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</form>
+
+
+<p-table [value]="users" [styleClass]="'base-table'">
+  <ng-template pTemplate="caption">
+    Current Users
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let column of columns">{{column}}</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr>
+      <td>
+        {{user.name}}
+      </td>
+      <td>
+        {{user.age}}
+      </td>
+      <td>
+        {{user.email}}
+      </td>
+      <td>
+        {{user.education}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
